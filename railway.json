@@ -1,8 +1,8 @@
 {
-    "build": {
-      "builder": "npm"
-    },
-    "deploy": {
-      "start": "node server.js"
-    }
+  "build": {
+    "builder": "npm"
+  },
+  "deploy": {
+    "start": "node server.js"
   }
+}
