@@ -47,8 +47,8 @@ Esta aplicación web es una biblioteca digital moderna y vanguardista, diseñada
 1.  **Clona el repositorio:**
 
     ```bash
-    git clone [URL del repositorio]
-    cd [nombre del directorio del proyecto]
+    git clone https://github.com/S4mma3l/App.git
+    cd App
     ```
 
 2.  **Instala las dependencias:**
