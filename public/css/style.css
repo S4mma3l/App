@@ -1,0 +1,311 @@
+/* Estilos Generales */
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #FFF7F3, #A9B5DF);
+    color: #2D336B;
+    line-height: 1.7;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease;
+}
+
+body:hover {
+    background-color: #E8EAF6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    overflow: hidden;
+    padding: 20px; /* Reducido para mobile */
+    flex: 1;
+}
+
+/* Header */
+header {
+    background: rgba(255, 255, 255, 0.8);
+    color: #2D336B;
+    padding: 20px 0;
+    min-height: 80px;
+    border-bottom: 3px solid #7886C7;
+    text-align: center;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+    position: relative;
+    overflow: hidden;
+}
+
+header h1 {
+    font-size: 2.5em; /* Reducido para mobile */
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.2em;
+}
+
+/* Formulario de Login */
+form {
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 700;
+    color: #4B5563;
+    font-size: 1.1em; /* Reducido para mobile */
+    letter-spacing: 0.03em;
+}
+
+form input[type="email"] {
+    width: 100%;
+    padding: 16px;
+    margin-bottom: 25px;
+    border: 2px solid #A9B5DF;
+    border-radius: 12px;
+    box-sizing: border-box;
+    font-size: 1.1em;
+    color: #374151;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+}
+
+form input[type="email"]:focus {
+    border-color: #7886C7;
+    box-shadow: 0 7px 15px rgba(101, 67, 33, 0.2);
+}
+
+form p {
+    font-size: 0.9em;
+    color: #6B7280;
+    margin-bottom: 20px;
+}
+
+/* Estilos para el contenedor del buscador */
+.search-container {
+    display: flex;
+    flex-direction: column; /* Apilar elementos en mobile */
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+/* Estilos para el campo de búsqueda */
+#searchInput {
+    width: 100%; /* Ancho completo en mobile */
+    max-width: 100%; /* Ancho máximo del 100% en mobile */
+    padding: 14px;
+    border: 2px solid #A9B5DF;
+    border-radius: 12px;
+    font-size: 1.1em;
+    color: #374151;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    margin-right: 0; /* Eliminar margen derecho en mobile */
+    margin-bottom: 10px; /* Espacio entre input y botón en mobile */
+    outline: none;
+}
+
+#searchInput:focus {
+    border-color: #7886C7;
+    box-shadow: 0 7px 15px rgba(101, 67, 33, 0.2);
+}
+
+/* Botones */
+.primary-button {
+    background: linear-gradient(45deg, #7886C7, #2D336B);
+    color: #FFF2F2;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    box-shadow: 0 12px 30px rgba(45, 51, 107, 0.4);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.primary-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.1) 100%);
+    transition: left 0.6s;
+    z-index: 1;
+}
+
+.primary-button:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 15px 35px rgba(45, 51, 107, 0.5);
+}
+
+.primary-button:hover::before {
+    left: 100%;
+}
+
+.primary-button:active {
+    transform: translateY(0);
+    box-shadow: 0 10px 25px rgba(45, 51, 107, 0.4);
+}
+
+/* Mensajes */
+#message {
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 1em;
+    text-align: center;
+}
+
+.success {
+    background-color: #FFF2F2;
+    color: #2D336B;
+    border: 2px solid #7886C7;
+}
+
+.error {
+    background-color: #CD5C5C;
+    color: #8B0000;
+    border: 2px solid #FA8072;
+}
+
+/* Centrar el botón en la página de inicio */
+#loginButton {
+    display: block;
+    margin: 30px auto;
+}
+
+/* Estilos para los libros */
+.book-item {
+    border: 2px solid #7886C7;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+}
+
+.book-item h3 {
+    font-size: 1.4em;
+    margin-bottom: 8px;
+    color: #1E293B;
+}
+
+.book-item p {
+    font-size: 1em;
+    color: #4B5563;
+    margin-bottom: 10px;
+}
+
+.book-item img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.3s ease;
+}
+
+.book-item:hover img {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.book-item a {
+    display: inline-block;
+    background-color: #7886C7;
+    color: #F9FAFA;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.book-item a:hover {
+    background-color: #A9B5DF;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Media Queries */
+@media (min-width: 769px) {
+    /* Estilos para pantallas medianas y grandes */
+    .container {
+        padding: 40px;
+    }
+
+    header {
+        padding: 40px 0;
+        margin-bottom: 50px;
+    }
+
+    header h1 {
+        font-size: 3.5em;
+    }
+
+    form {
+        padding: 50px;
+        margin-bottom: 60px;
+    }
+
+    form label {
+        font-size: 1.3em;
+    }
+
+    form input[type="email"] {
+        margin-bottom: 40px;
+        font-size: 1.3em;
+    }
+
+    .search-container {
+        flex-direction: row; /* Alinear horizontalmente en pantallas grandes */
+        align-items: center;
+    }
+
+    #searchInput {
+        max-width: 450px; /* Restaurar ancho máximo */
+        width: auto;
+        margin-right: 20px;
+        margin-bottom: 0;
+    }
+
+    .primary-button {
+        padding: 20px 40px;
+        font-size: 1.3em;
+        border-radius: 60px;
+    }
+
+    .book-item {
+        padding: 25px;
+        margin-bottom: 25px;
+        border-radius: 12px;
+    }
+}
