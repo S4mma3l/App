@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     let apiUrl; // Declare apiUrl here
 
     try {
-        //Fetch the configuration from the backend
-        const backendUrl = 'https://app-production-b631.up.railway.app'; // Reemplaza con la URL real de Railway - Hardcoded (menos flexible)
+        // Fetch the configuration from the backend
+        const backendUrl = 'https://app-production-b631.up.railway.app'; // Reemplaza con la URL real de Railway - Hardcoded (less flexible)
 
-        const response = await fetch('/supabase-config'); // URL RELATIVA
+        const response = await fetch(backendUrl +'/supabase-config');
         if (!response.ok) {
             throw new Error(`Failed to fetch config: ${response.status} ${response.statusText}`);
         }

@@ -10,9 +10,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         // Obtener la configuración desde el backend
-        const backendUrl = 'https://app-production-b631.up.railway.app'; // Reemplaza con la URL real de Railway - Hardcoded (menos flexible)
+        const backendUrl = 'https://app-production-b631.up.railway.app'; // Reemplaza con la URL real de Railway - Hardcoded (less flexible)
 
-        const response = await fetch('/supabase-config'); // URL RELATIVA
+        const response = await fetch(backendUrl +'/supabase-config');
 
         if (!response.ok) {
             throw new Error(`Error al obtener la configuración: ${response.status} ${response.statusText}`);
