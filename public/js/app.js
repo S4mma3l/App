@@ -1,6 +1,6 @@
-console.log('Archivo app.js se está ejecutando en el navegador');
-
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+console.log('Archivo app.js se está ejecutando en el navegador');
 
 document.addEventListener('DOMContentLoaded', async () => {
     const logoutButton = document.getElementById('logoutButton');
@@ -9,42 +9,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     const bookListContainer = document.getElementById('bookListContainer');
 
     // Obtener las variables de entorno de Vercel
-    const supabaseUrl = process.env.SUPABASE_URL;
-    const supabaseKey = process.env.SUPABASE_ANON_KEY;
-    const apiUrl = process.env.API_URL;
+    const supabaseUrl = window.SUPABASE_URL;
+    const supabaseKey = window.SUPABASE_ANON_KEY;
+    const apiUrl = window.API_URL;
 
     console.log('supabaseUrl:', supabaseUrl);
     console.log('supabaseKey:', supabaseKey);
-    console.log('apiUrl:', apiUrl);
 
-    let supabase;
-
-    try {
-        // Obtener la configuración de Supabase desde el backend usando la variable de entorno API_URL
-        const response = await fetch(apiUrl + '/supabase-config');
-        const config = await response.json();
-        supabaseUrl = config.supabaseUrl;
-        supabaseKey = config.supabaseKey;
-
-        console.log('supabaseUrl:', supabaseUrl);
-        console.log('supabaseKey:', supabaseKey);
-
-        if (supabaseUrl && supabaseKey) {
-            supabase = createClient(supabaseUrl, supabaseKey);
-            console.log('Supabase inicializado correctamente:', supabase);
-        } else {
-            console.error('Las credenciales de Supabase no se cargaron correctamente.');
-            alert('Error al cargar la configuración. Revisa la consola.');
-            return; // Detener la ejecución si no se puede obtener la configuración
-        }
-
-    } catch (error) {
-        console.error('Error al obtener la configuración de Supabase:', error);
+    if (supabaseUrl && supabaseKey) {
+        supabase = createClient(supabaseUrl, supabaseKey);
+        console.log('Supabase inicializado correctamente:', supabase);
+    } else {
+        console.error('Las credenciales de Supabase no se cargaron correctamente.');
         alert('Error al cargar la configuración. Revisa la consola.');
         return; // Detener la ejecución si no se puede obtener la configuración
     }
 
-    // **MOVER ESTE BLOQUE AQUÍ PARA PODER USAR API_URL**
+    // **AQUÍ PEGASTE EL CÓDIGO DE login.js**
     const loginForm = document.getElementById('loginForm');
     const messageDiv = document.getElementById('message');
 
