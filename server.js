@@ -13,6 +13,7 @@ const port = process.env.PORT || 3000;
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_ANON_KEY;
+const apiUrl = process.env.API_URL;
 
 //console.log('SUPABASE_URL:', supabaseUrl);
 //console.log('SUPABASE_ANON_KEY:', supabaseKey);
@@ -22,9 +23,9 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 // Middleware para servir archivos estáticos desde la carpeta "public"
 // Configuración de CORS
 const whitelist = [
-  'http://localhost:5500', // Para desarrollo local
+  'http://localhost:3000', // Para desarrollo local
   'https://app-bay-beta.vercel.app', // Tu dominio de Vercel (Asegúrate de que sea el correcto)
-  'https://app-pid453de6-s4mma3ls-projects.vercel.app', // Tu dominio de Vercel (Asegúrate de que sea el correcto)
+  'https://app-s4mma3ls-projects.vercel.app/', // Tu dominio de Vercel (Asegúrate de que sea el correcto)
   'https://app-git-main-s4mma3ls-projects.vercel.app/', // Tu dominio de Vercel (Asegúrate de que sea el correcto)
 ];
 
@@ -88,18 +89,20 @@ app.get('/auth/confirm', async (req, res) => {
   }
 });
 
-// Endpoint para exponer la configuración de Supabase al frontend
+// Endpoint para exponer the supabase config and api url to the frontend
 app.get('/supabase-config', (req, res) => {
   console.log('Endpoint /supabase-config llamado'); // Agrega esto
   res.json({
     supabaseUrl: process.env.SUPABASE_URL,
-    supabaseKey: process.env.SUPABASE_ANON_KEY
+    supabaseKey: process.env.SUPABASE_ANON_KEY,
+    apiUrl: process.env.API_URL
   });
 });
 
 // Middleware de manejo de errores
 app.use((err, req, res, next) => {
   console.error(err.stack);
+  console.error(err); // Log the full error object
   res.status(500).send('Algo salió mal!');
 });
 
