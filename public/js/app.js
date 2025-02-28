@@ -9,9 +9,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const bookListContainer = document.getElementById('bookListContainer');
 
     // Obtener las variables de entorno de Vercel
-    const supabaseUrl = window.SUPABASE_URL;
-    const supabaseKey = window.SUPABASE_ANON_KEY;
-    const apiUrl = window.API_URL;
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
     console.log('supabaseUrl:', supabaseUrl);
     console.log('supabaseKey:', supabaseKey);
