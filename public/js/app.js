@@ -1,7 +1,5 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-console.log('Archivo app.js se está ejecutando en el navegador');
-
 document.addEventListener('DOMContentLoaded', async () => {
     const logoutButton = document.getElementById('logoutButton');
     const searchInput = document.getElementById('searchInput');
@@ -11,31 +9,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     let supabaseUrl, supabaseKey, supabase, apiUrl;
 
     try {
-        // Obtener la configuración de Supabase desde el backend usando la variable de entorno API_URL
-        const response = await fetch('/supabase-config');
+        // Obtener la configuración desde el backend
+        const response = await fetch('/supabase-config'); // URL RELATIVA
+        if (!response.ok) {
+            throw new Error(`Error al obtener la configuración: ${response.status} ${response.statusText}`);
+        }
         const config = await response.json();
         supabaseUrl = config.supabaseUrl;
         supabaseKey = config.supabaseKey;
-        apiUrl = config.apiUrl;
+        apiUrl = config.apiUrl;  // ASIGNAR EL VALOR DESDE LA CONFIGURACIÓN
 
-        console.log('supabaseUrl:', supabaseUrl);
-        console.log('supabaseKey:', supabaseKey);
-        console.log('apiUrl:', apiUrl);
-
-
-        if (supabaseUrl && supabaseKey) {
-            supabase = createClient(supabaseUrl, supabaseKey);
-            console.log('Supabase inicializado correctamente:', supabase);
-        } else {
-            console.error('Las credenciales de Supabase no se cargaron correctamente.');
-            alert('Error al cargar la configuración. Revisa la consola.');
-            return; // Detener la ejecución si no se puede obtener la configuración
+        if (!supabaseUrl || !supabaseKey || !apiUrl) {
+            throw new Error('Faltan variables de configuración (supabaseUrl, supabaseKey, apiUrl)');
         }
 
+        supabase = createClient(supabaseUrl, supabaseKey);
+        console.log('Supabase inicializado correctamente.');
+
     } catch (error) {
-        console.error('Error al obtener la configuración de Supabase:', error);
-        alert('Error al cargar la configuración. Revisa la consola.');
-        return; // Detener la ejecución si no se puede obtener la configuración
+        console.error('Error al cargar la configuración:', error);
+        alert('Error al cargar la configuración.  Consulta la consola.');
+        searchButton.disabled = true; // Disable search button
+        return; // Detener la ejecución
     }
 
     // Función para mostrar los libros en el contenedor
