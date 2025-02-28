@@ -24,6 +24,8 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 const whitelist = [
   'http://localhost:5500', // Para desarrollo local
   'https://app-bay-beta.vercel.app', // Tu dominio de Vercel (Asegúrate de que sea el correcto)
+  'https://app-pid453de6-s4mma3ls-projects.vercel.app', // Tu dominio de Vercel (Asegúrate de que sea el correcto)
+  'https://app-git-main-s4mma3ls-projects.vercel.app/', // Tu dominio de Vercel (Asegúrate de que sea el correcto)
 ];
 
 const corsOptions = {
