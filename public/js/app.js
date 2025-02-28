@@ -35,6 +35,43 @@ document.addEventListener('DOMContentLoaded', async () => {
         return; // Detener la ejecución si no se puede obtener la configuración
     }
 
+    // **AQUÍ PEGASTE EL CÓDIGO DE login.js**
+    const loginForm = document.getElementById('loginForm');
+    const messageDiv = document.getElementById('message');
+
+    if (loginForm) { // Verifica si el formulario existe en la página actual
+        loginForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+
+            try {
+                const response = await fetch(process.env.API_URL + '/login', { // Usar API_URL
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    messageDiv.textContent = data.message;
+                    messageDiv.className = 'success';
+                } else {
+                    messageDiv.textContent = `Error: ${data.error}`;
+                    messageDiv.className = 'error';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                messageDiv.textContent = 'Ocurrió un error al enviar la solicitud.';
+                messageDiv.className = 'error';
+            }
+        });
+    }
+
+    // ----------------------------------------
+
     // Función para mostrar los libros en el contenedor
     async function displayBooks(books) {
         console.log('Función displayBooks ejecutándose con los libros:', books);
@@ -72,25 +109,25 @@ document.addEventListener('DOMContentLoaded', async () => {
                 .select('*')
                 .or(`title.ilike.%${searchTerm}%,author.ilike.%${searchTerm}%,genre.ilike.%${searchTerm}%`); // Busca por título, autor y género
     
-            console.log('Resultado de la consulta a Supabase:', books);
-            console.log('Error de la consulta a Supabase:', error);
+        console.log('Resultado de la consulta a Supabase:', books);
+        console.log('Error de la consulta a Supabase:', error);
     
-            if (error) {
-                console.error('Error al buscar los libros:', error);
-                bookListContainer.textContent = 'Error al buscar los libros.';
-                return;
-            }
-    
-            console.log('Libros encontrados:', books);
-            displayBooks(books); // Muestra los resultados
-        } catch (error) {
+        if (error) {
             console.error('Error al buscar los libros:', error);
             bookListContainer.textContent = 'Error al buscar los libros.';
+            return;
         }
+    
+        console.log('Libros encontrados:', books);
+        displayBooks(books); // Muestra los resultados
+    } catch (error) {
+        console.error('Error al buscar los libros:', error);
+        bookListContainer.textContent = 'Error al buscar los libros.';
     }
+}
 
     // Agrega un event listener al botón de búsqueda
-    searchButton.addEventListener('click', () => {
+searchButton.addEventListener('click', () => {
         const searchTerm = searchInput.value.trim();
         console.log('Botón de búsqueda clickeado. Término de búsqueda:', searchTerm);
 
