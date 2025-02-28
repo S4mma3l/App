@@ -10,7 +10,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         // Obtener la configuración desde el backend
+        const backendUrl = 'https://app-production-b631.up.railway.app'; // Reemplaza con la URL real de Railway - Hardcoded (menos flexible)
+
         const response = await fetch('/supabase-config'); // URL RELATIVA
+
         if (!response.ok) {
             throw new Error(`Error al obtener la configuración: ${response.status} ${response.statusText}`);
         }
@@ -18,6 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         supabaseUrl = config.supabaseUrl;
         supabaseKey = config.supabaseKey;
         apiUrl = config.apiUrl;  // ASIGNAR EL VALOR DESDE LA CONFIGURACIÓN
+
 
         if (!supabaseUrl || !supabaseKey || !apiUrl) {
             throw new Error('Faltan variables de configuración (supabaseUrl, supabaseKey, apiUrl)');
