@@ -20,7 +20,25 @@ const supabaseKey = process.env.SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Middleware para servir archivos estáticos desde la carpeta "public"
-app.use(cors()); // Agrega esto (para desarrollo, luego ajusta)
+// Configuración de CORS
+const whitelist = [
+  'http://localhost:5500', // Para desarrollo local
+  'https://app-bay-beta.vercel.app', // Tu dominio de Vercel (Asegúrate de que sea el correcto)
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) { // !origin permite solicitudes desde el mismo origen
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'OPTIONS'], // Métodos permitidos
+  allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
+};
+
+app.use(cors(corsOptions));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json()); // Para parsear el body de las peticiones POST
 
@@ -70,7 +88,7 @@ app.get('/auth/confirm', async (req, res) => {
 
 // Endpoint para exponer la configuración de Supabase al frontend
 app.get('/supabase-config', (req, res) => {
-  console.log('Endpoint /supabase-config llamado');
+  console.log('Endpoint /supabase-config llamado'); // Agrega esto
   res.json({
     supabaseUrl: process.env.SUPABASE_URL,
     supabaseKey: process.env.SUPABASE_ANON_KEY

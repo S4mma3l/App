@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     let supabaseUrl, supabaseKey, supabase;
 
     try {
-        const response = await fetch('/supabase-config');
+        // Obtener la configuración de Supabase desde el backend usando la variable de entorno API_URL
+        const response = await fetch(process.env.API_URL + '/supabase-config');
         const config = await response.json();
         supabaseUrl = config.supabaseUrl;
         supabaseKey = config.supabaseKey;
