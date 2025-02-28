@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const email = document.getElementById('email').value;
 
         try {
-            const response = await fetch('/login', {
+            const response = await fetch(process.env.API_URL + '/login', { // Usar API_URL
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -19,15 +19,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 messageDiv.textContent = data.message;
-                messageDiv.className = 'success'; // Agrega la clase 'success'
+                messageDiv.className = 'success';
             } else {
                 messageDiv.textContent = `Error: ${data.error}`;
-                messageDiv.className = 'error'; // Agrega la clase 'error'
+                messageDiv.className = 'error';
             }
         } catch (error) {
             console.error('Error:', error);
             messageDiv.textContent = 'Ocurrió un error al enviar la solicitud.';
-            messageDiv.className = 'error'; // Agrega la clase 'error'
+            messageDiv.className = 'error';
         }
     });
 });
