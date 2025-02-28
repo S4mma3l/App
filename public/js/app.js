@@ -1,6 +1,6 @@
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-
 console.log('Archivo app.js se está ejecutando en el navegador');
+
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const logoutButton = document.getElementById('logoutButton');
@@ -8,11 +8,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     const searchButton = document.getElementById('searchButton');
     const bookListContainer = document.getElementById('bookListContainer');
 
-    let supabaseUrl, supabaseKey, supabase;
+    // Obtener las variables de entorno de Vercel
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_ANON_KEY;
+    const apiUrl = process.env.API_URL;
+
+    console.log('supabaseUrl:', supabaseUrl);
+    console.log('supabaseKey:', supabaseKey);
+    console.log('apiUrl:', apiUrl);
+
+    let supabase;
 
     try {
         // Obtener la configuración de Supabase desde el backend usando la variable de entorno API_URL
-        const response = await fetch(process.env.API_URL + '/supabase-config');
+        const response = await fetch(apiUrl + '/supabase-config');
         const config = await response.json();
         supabaseUrl = config.supabaseUrl;
         supabaseKey = config.supabaseKey;
@@ -35,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         return; // Detener la ejecución si no se puede obtener la configuración
     }
 
-    // **AQUÍ PEGASTE EL CÓDIGO DE login.js**
+    // **MOVER ESTE BLOQUE AQUÍ PARA PODER USAR API_URL**
     const loginForm = document.getElementById('loginForm');
     const messageDiv = document.getElementById('message');
 
@@ -45,7 +54,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const email = document.getElementById('email').value;
 
             try {
-                const response = await fetch(process.env.API_URL + '/login', { // Usar API_URL
+                const response = await fetch(apiUrl + '/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -69,7 +78,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
     }
-
     // ----------------------------------------
 
     // Función para mostrar los libros en el contenedor
@@ -109,25 +117,25 @@ document.addEventListener('DOMContentLoaded', async () => {
                 .select('*')
                 .or(`title.ilike.%${searchTerm}%,author.ilike.%${searchTerm}%,genre.ilike.%${searchTerm}%`); // Busca por título, autor y género
     
-        console.log('Resultado de la consulta a Supabase:', books);
-        console.log('Error de la consulta a Supabase:', error);
+            console.log('Resultado de la consulta a Supabase:', books);
+            console.log('Error de la consulta a Supabase:', error);
     
-        if (error) {
+            if (error) {
+                console.error('Error al buscar los libros:', error);
+                bookListContainer.textContent = 'Error al buscar los libros.';
+                return;
+            }
+    
+            console.log('Libros encontrados:', books);
+            displayBooks(books); // Muestra los resultados
+        } catch (error) {
             console.error('Error al buscar los libros:', error);
             bookListContainer.textContent = 'Error al buscar los libros.';
-            return;
         }
-    
-        console.log('Libros encontrados:', books);
-        displayBooks(books); // Muestra los resultados
-    } catch (error) {
-        console.error('Error al buscar los libros:', error);
-        bookListContainer.textContent = 'Error al buscar los libros.';
     }
-}
 
     // Agrega un event listener al botón de búsqueda
-searchButton.addEventListener('click', () => {
+    searchButton.addEventListener('click', () => {
         const searchTerm = searchInput.value.trim();
         console.log('Botón de búsqueda clickeado. Término de búsqueda:', searchTerm);
 
